@@ -1,62 +1,65 @@
-#include<iostream>
+#include <iostream>
 using namespace std;
-void arrFtn(int *, int *);
 
+void displayDescending(int *arr, int size);
 
+int main() {
+    int scores[25];       // Array to store valid scores
+    int count = 0;        // Counter for valid scores
 
-int main(){
-    int arr[25];
-    int unique[25];
+    cout << "Enter scores for 25 participants (0-100):\n";
 
-    
-    arrFtn(arr, unique);
+    while (count < 25) { // Loop until we have 25 valid scores
+        int score;
+        bool isUnique = true;
 
-    for(int i = 0; i < 25; i++){
-        cout<<*(arr + i)<<endl;
-    }
+        cout << "Enter score " << count + 1 << ": ";
+        cin >> score;
 
-}
-
-void arrFtn(int *arr, int *unique){
-
-    cout<<"Enter your score 0-100 ";
-
-    int count = 0;
-    
-    for(int i = 0; i < 25; i++){
-       cin>>*(arr + i);
-
-       int check = 1;
-
-        if(*(arr+i) > 50 ){
-            
-            for(int j = 0; j < count; j++){
-                if(*(arr+i) == *(arr + j)){
-                    check = 0;
+        // Check if score is valid (0-100 and above 50)
+        if (score > 50 && score <= 100) {
+            // Check for duplicates in the scores array
+            for (int j = 0; j < count; j++) {
+                if (scores[j] == score) {
+                    isUnique = false;
                     break;
                 }
             }
-        }
 
-        else{
-            cout<<"Value should be greater than 50 ";
-            return;
-        }
-
-        
-
-
-
-        for(int j = 0; j < 25; j++){
-            if(*(arr+i) == *(arr + j)+1){
-                cout<<"Value should be unique";
-                i--;
-                break;
+            // If unique, store the score
+            if (isUnique) {
+                scores[count] = score;
+                count++;
+            } else {
+                cout << "Duplicate score! Enter a different score.\n";
             }
-            else{
-                continue;
+        } else {
+            cout << "Invalid score! Enter a value above 50 and up to 100.\n";
+        }
+    }
+
+    // Display the scores in descending order
+    cout << "\nUnique scores above 50 in descending order:\n";
+    displayDescending(scores, count);
+
+    return 0;
+}
+
+void displayDescending(int *arr, int size) {
+    // Sort in descending order using bubble sort
+    for (int i = 0; i < size - 1; i++) {
+        for (int j = 0; j < size - i - 1; j++) {
+            if (arr[j] < arr[j + 1]) {
+                int temp = arr[j];
+                arr[j] = arr[j + 1];
+                arr[j + 1] = temp;
             }
         }
     }
 
+    // Display sorted scores
+    for (int i = 0; i < size; i++) {
+        cout << arr[i] << " ";
+    }
+    cout << endl;
 }
