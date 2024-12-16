@@ -15,14 +15,21 @@ int main( )
 // printf ( "%c\n", s[ 2 ] ) ;  // t
 
 
-char s[ ] = "Borrowers of books spoil the symmetry of shelves" ;
-int i = 0 ;
-while ( s[ i ] != '\0' )
-{
-printf ( "%c %c\n", s[ i ], *( s + i ) ) ;
-printf ( "%c %c\n", i[ s ], *( i + s ) ) ;
-i++ ;
-}
+// char s[ ] = "Borrowers of books spoil the symmetry of shelves" ;
+// int i = 0 ;
+// while ( s[ i ] != '\0' )
+// {
+// printf ( "%c %c\n", s[ i ], *( s + i ) ) ;
+// printf ( "%c %c\n", i[ s ], *( i + s ) ) ;
+// i++ ;
+// }
+
+
+
+// printf ( 5 + "Good Morning " ) ;
+// printf ( "%c\n", "abcdefgh"[ 4 ] ) ;
+
+printf ( "%d %d %d\n", sizeof ( '3' ), sizeof ( "3" ), sizeof ( 3 ) ) ;
 
 
 return 0 ;
