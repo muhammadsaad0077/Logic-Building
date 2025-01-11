@@ -6,7 +6,7 @@ void reverse(char *str);
 
 int main() {
     
-    char str[] = "Pakistan";
+    char str[] = "Pakistans";
     cout<<str;
     
     reverse(str);
