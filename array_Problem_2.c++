@@ -38,6 +38,7 @@ void swapArrayValues(int *arr_a, int *arr_b){
     int temp;
 
     for(int i = 0; i < 5; i++){
+        
     temp = *(arr_a + i);
     *(arr_a + i) = *(arr_b + i);
     *(arr_b + i) = temp;
