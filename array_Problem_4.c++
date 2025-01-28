@@ -29,31 +29,49 @@ subjects).
 using namespace std;
 
 
-const int maxStudent = 100;
-char studentName[maxStudent];
+const int maxStudent = 10;
+const int totalSubjects = 3;
+
+char studentName[maxStudent][50];
 int studentRollNo[maxStudent];
+int studentMarks[maxStudent][totalSubjects];
 int totalStudent = 0;
 
 
 
 void addNewStudent();
+void displayAllStudent();
+void averageMarks();
+void highestMarksStudent();
 
 int main(){
 
     int choice;
 
     do{
-        cout<<"\t\tWelcome to Student Portal"<<endl;
-        cout<<"\t\1: Add new Student Records"<<endl;
-        cout<<"\t\2: Check all Student Records"<<endl;
-        cout<<"\t\3: Check Average Marks of each Student"<<endl;
-        cout<<"\t\4: Highest Student Marks"<<endl;
-        cout<<"\t\5: Exit from Portal"<<endl;
+        cout<<"\n\n\t\tWelcome to Student Portal"<<endl;
+        cout<<"\t1: Add new Student Records"<<endl;
+        cout<<"\t2: Check all Student Records"<<endl;
+        cout<<"\t3: Check Average Marks of each Student"<<endl;
+        cout<<"\t4: Highest Student Marks"<<endl;
+        cout<<"\t5: Exit from Portal"<<endl;
         cin>>choice;
 
         switch(choice){
             case 1:
             addNewStudent();
+            break;
+
+            case 2:
+            displayAllStudent();
+            break;
+
+            case 3:
+            averageMarks();
+            break;
+
+            case 4:
+            highestMarksStudent();
             break;
         }
     }
@@ -67,10 +85,90 @@ void addNewStudent(){
 
     cout<<"Enter Your Name ";
     cin.ignore();
+
+
     cin.getline(studentName[totalStudent], 50);
 
     cout<<"Enter Your Roll No ";
+
     cin >> studentRollNo[totalStudent];
 
+    cout<<"Enter marks for the 3 subjects: "<<endl;
+    for(int i = 0; i < totalSubjects; i++){
+        cout<<"Enter marks of Subject "<<i+1<<endl;
+        cin>>studentMarks[totalStudent][i];
+    }
+
+    
+
+    totalStudent++;
+
+    cout<<"\n\nStudent Added Sucessfully";
+
+
+}
+
+void displayAllStudent(){
+
+    if(totalStudent == 0){
+        cout<<"No Student Found ";
+    }
+
+    else{
+
+        for(int i = 0; i < totalStudent; i++){
+            cout<<"Name "<<endl;
+            cout<<studentName[i]<<endl;
+            cout<<"Roll No "<<endl;
+            cout<<studentRollNo[i]<<endl;
+          for(int j = 0; j < totalSubjects; j++){
+            cout<<"\nSubjects Marks "<<endl;
+            cout<<studentMarks[i][j]<<endl;
+          }      
+
+        }
+
+
+    }
+
+
+}
+
+void averageMarks(){
+
+    float averageMarks;
+    float finalAverageMarks;
+
+    for(int i = 0; i < totalStudent; i++){
+        averageMarks = 0;
+
+        for(int j = 0; j < totalSubjects; j++){
+            averageMarks += studentMarks[i][j];
+        }
+
+        finalAverageMarks = averageMarks / 3;
+
+        cout<<"The Average Marks of "<<studentName[i]<<" is "<<finalAverageMarks<<endl;
+
+    }
+
+}
+
+void highestMarksStudent(){
+    int maxStudent;
+    int index = 0;
+
+    maxStudent = studentMarks[0][0];
+
+    for(int i = 0; i < totalStudent; i++){
+        for(int j = 0; j < totalSubjects; j++){
+            if(studentMarks[i][j] > maxStudent){
+                maxStudent = studentMarks[i][j];
+                index = i;              
+            }
+        }
+    }
+
+    cout<<"Highest Student Marks is "<<maxStudent<<" and is "<<studentName[index];
 
 }
