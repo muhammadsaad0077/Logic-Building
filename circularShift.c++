@@ -17,7 +17,6 @@ int main(){
     cout<<"The value after swapping, x = "<<x<<" y = "<<y<<" z = "<<z;
 
 }
-
 void circular(int *x, int *y, int *z){
     int temp = *x;
     *x = *y;
