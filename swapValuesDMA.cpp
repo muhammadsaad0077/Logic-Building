@@ -3,9 +3,9 @@
 using namespace std;
 
 /*
-Write a code that takes a 2D string array with values {“Read”, “Bear”, “Hat”, “beat”,
-“ ”} swaps the values as shown in the example:
-{“Bead”, “Rear”, “Bat”, “Heat”, “ ”}
+Write a code that takes a 2D string array with values {"Read", "Bear", "Hat", "beat",
+" "} swaps the values as shown in the example:
+{"Bead", "Rear", "Bat", "Heat", " "}
 And then calculates the total no of characters in the 2D array
 */
 
