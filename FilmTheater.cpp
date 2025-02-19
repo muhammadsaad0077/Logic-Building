@@ -1,71 +1,67 @@
-#include<iostream>
+#include <iostream>
+
 using namespace std;
 
-/*
-Write a C++ program that uses a 2D array to represent the seating chart of a
-movie theater, where each element of the array is either 0 for an empty seat or 1
-for a reserved seat. The program prompts the user to input the row and seat
-number of the seat they want to reserve, check if the seat is available, and
-reserve it if it is. The program keeps track of the total number of reserved seats
-and prints it out at the end
-*/
-
-int main(){
-	int row = 5, col = 5;
-	int totalSeats = row * col;
-	int**arr = new int*[row];
-	int *reserved = new int[row];
-	
-	for(int i = 0; i < row; i++){
-		arr[i] = new int[col];
-	}
-	
-	
-	
-	for(int i = 0; i < row; i++){
-		for(int j = 0; j < col; j++){
-			arr[i][j] = 0;
-		}
-	}
-	
-	int seatRow, seat;
-	int rowIndex = 0, colIndex = 0;
-	
-	do{
-	  cout<<"Enter Seat Number To Reserve (Enter 0 0 to exit)"<<endl;
-	  cout<<"Enter Row (should be less than "<<row<<" )"<<endl;
-	  cin>>seatRow;
-	  cout<<"Enter Seat No (should be less than "<<col<<" )"<<endl;
-	  cin>>seat;
-	  
-	  if(arr[seatRow][seat] == 0){
-	  	cout<<"Your Seat is Reserved"<<endl;
-	  	arr[seatRow][seat] = 1;
-	  	reserved[rowIndex] = *arr[seatRow] * *arr[seat];
-	  	rowIndex++;
-	  }
-	  else{
-	  	cout<<"This seat is already reserved! Choose another Seat"<<endl;
-	  }
-	  	
-	}
-	while(seatRow != 0 && seat != 0);
-	
-	for(int i = 0; i < rowIndex; i++){
-			cout<<reserved[i]<<" ";
-	}
-	
-	for(int i = 0; i < row; i++){
-		delete[] arr[i];
-	}
-	
-	delete[] arr;
-	arr = NULL;
-	
-	
-	delete[] reserved;
-	reserved = NULL;
-	
-	return 0;
-	
+void displaySeats(int** seats, int rows, int cols) {
+    cout << "Current Seating Chart (0 = Available, 1 = Reserved):\n";
+    for (int i = 0; i < rows; i++) {
+        for (int j = 0; j < cols; j++) {
+            cout << seats[i][j] << " ";
+        }
+        cout << endl;
+    }
 }
+
+int main() {
+    int rows, cols;
+
+    cout << "Enter the number of rows in the theater: ";
+    cin >> rows;
+    cout << "Enter the number of seats per row: ";
+    cin >> cols;
+
+    int** seats = new int*[rows];
+    for (int i = 0; i < rows; i++) {
+        seats[i] = new int[cols]{0}; 
+    }
+
+    int reservedCount = 0;
+    char choice;
+
+    do {
+        int row, col;
+        displaySeats(seats, rows, cols); 
+
+        cout << "Enter row (0-" << rows - 1 << ") and seat (0-" << cols - 1 << ") to reserve: ";
+        cin >> row >> col;
+
+        if (row >= 0 && row < rows && col >= 0 && col < cols) {
+            if (seats[row][col] == 0) { 
+                seats[row][col] = 1; 
+                reservedCount++;
+                cout << "Seat successfully reserved!\n";
+            } else {
+                cout << "Sorry, this seat is already taken. Choose another.\n";
+            }
+        } else {
+            cout << "Invalid input. Please enter a valid seat number.\n";
+        }
+
+        cout << "Do you want to reserve another seat? (y/n): ";
+        cin >> choice;
+
+    } while (choice == 'y' || choice == 'Y'); 
+
+    
+    cout << "Total seats reserved: " << reservedCount << endl;
+    displaySeats(seats, rows, cols);
+
+    for (int i = 0; i < rows; i++) {
+        delete[] seats[i];
+    }
+    delete[] seats;
+    seats = NULL;
+
+    return 0;
+}
+
