@@ -3,6 +3,7 @@ using namespace std;
 
 void displayMatrix(int **, int, int);
 int diagonalSum(int **, int, int);
+int absoluteSum(int **, int, int, int);
 
 int main(){
 	int row, col;
@@ -31,8 +32,11 @@ int main(){
 		displayMatrix(arr, row, col);
 		
 		int diagonalSumResult = diagonalSum(arr, row, col);
+		int absoluteSumResult = absoluteSum(arr, row, col, diagonalSumResult);
 		
-		cout<<"Sum "<<diagonalSumResult;
+		cout<<"Diagonal Sum is "<<diagonalSumResult<<endl;
+		
+		cout<<"Absolute Sum is "<<absoluteSumResult;
 		
 		
 		
@@ -69,6 +73,16 @@ int diagonalSum(int **arr, int row, int col){
 	}
 	
 	return sum;
+}
+
+int absoluteSum(int **arr, int row, int col, int diagonalSum){
+	int sum = 0;
+	
+	for(int i = 0; i < row; i++){
+			sum += arr[i][row - i - 1];
+	}
+	
+	return diagonalSum - sum;
 }
 
 
