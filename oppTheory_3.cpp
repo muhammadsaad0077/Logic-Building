@@ -68,24 +68,24 @@ float calculateAverage(Student *student, int index){
     
 }
 
-void sortStudents(Student *student, int numStudents){
-    int index = 0;
-    int maxAverage = student[index].studentAverage;
-    
-    
-    for(int i = 1; i < numStudents; i++){
-        if(student[i].studentAverage > maxAverage){
-            maxAverage = student[i].studentAverage;
-            index = i;
+void sortStudents(Student *student, int numStudents) {
+    for(int i = 0; i < numStudents - 1; i++){
+        for(int j = 0; j < numStudents - 1 - i; j++){
+            if(student[j].studentAverage < student[j+1].studentAverage){
+                Student temp = student[j];
+                student[j] = student[j+1];
+                student[j+1] = temp;
+            }
+            
         }
     }
+
     
-    maxAverage = student[index].studentAverage;
-    
-    cout<<"Highest Student Average "<<endl;
-    cout<<"Name: "<<student[index].name<<endl;
-    cout<<"Total Subjects: "<<student[index].numSubjects<<endl;
-    cout<<"Average: "<<student[index].studentAverage<<endl;
+
+    cout<<"Highest Student Average is "<<student[0].studentAverage<<endl;
+    cout<<"Name: "<<student[0].name<<endl;
+    cout<<"Total Subjects: "<<student[0].numSubjects<<endl;
+    cout<<"Average: "<<student[0].studentAverage<<endl;
     
 }
 
