@@ -1,102 +1,57 @@
 #include <iostream>
+#include<string>
 using namespace std;
 
-class Student {
-private:
+class Student{
+    public:
     string name;
-    int numSubjects;
-    int *scores;
-    float studentAverage;
-
-public:
-    Student() : numSubjects(0), scores(nullptr), studentAverage(0.0) {}
+    int rollNo;
+    int marks[3][3];
+    int index = 0;
+    float totalMarks = 0;
+    float average[3];
     
-    void inputStudentData() {
-        cout << "Enter Name of Student: ";
-        cin >> name;
+    void studentData(int index){
+        index = index;
+        cout<<"Enter Name: ";
+        cin>>name;
+        cout<<"Enter RollNo: ";
+        cin>>rollNo;
         
-        cout << "Enter Number of Subjects: ";
-        cin >> numSubjects;
+        for(int i = 0; i < 3; i++){
+            cout<<"Enter marks for "<<i+1<<" Subject "<<endl;
+            cin>>marks[index][i];
+            totalMarks += marks[index][i];
+        }
         
-        scores = new int[numSubjects];
-        for (int i = 0; i < numSubjects; i++) {
-            cout << "Enter Marks of Subject " << i + 1 << ": ";
-            cin >> scores[i];
+        average[index] = totalMarks / 3;
+    }
+    
+    void displayData(int index){
+        index = index;
+        cout<<"Name: "<<name<<endl;
+        cout<<"RollNo "<<rollNo<<endl;
+        
+        for(int i = 0; i < 3; i++){
+            cout<<"Marks of Subject "<<i+1<<" "<<marks[index][i]<<endl;
         }
-        studentAverage = calculateAverage();
-    }
-    
-    float calculateAverage() {
-        float total = 0;
-        for (int i = 0; i < numSubjects; i++) {
-            total += scores[i];
-        }
-        return numSubjects > 0 ? total / numSubjects : 0;
-    }
-    
-    void displayStudentData() const {
-        cout << "Name: " << name << endl;
-        cout << "Total Subjects: " << numSubjects << endl;
-        for (int i = 0; i < numSubjects; i++) {
-            cout << "Subject " << i + 1 << " Marks: " << scores[i] << endl;
-        }
-        cout << "Average Marks: " << studentAverage << endl;
-    }
-    
-    float getAverage() const {
-        return studentAverage;
-    }
-    
-    string getName() const {
-        return name;
-    }
-    
-    int getNumSubjects() const {
-        return numSubjects;
-    }
-    
-    void cleanup() {
-        delete[] scores;
-    }
-    
-    static void sortStudents(Student *students, int numStudents) {
-        for (int i = 0; i < numStudents - 1; i++) {
-            for (int j = 0; j < numStudents - 1 - i; j++) {
-                if (students[j].getAverage() < students[j + 1].getAverage()) {
-                    swap(students[j], students[j + 1]);
-                }
-            }
-        }
-
-        cout << "\nStudent with Highest Average: " << endl;
-        students[0].displayStudentData();
+        
+        cout<<"Average: "<<average[index]<<endl;
     }
 };
 
 int main() {
-    int numStudents;
-    cout << "Enter number of students: ";
-    cin >> numStudents;
+    int totalStudents = 3;
+    Student student[totalStudents];
+    
+    for(int i = 0; i < totalStudents; i++){
+        student[i].studentData(i);
+    }
+    
+    for(int i = 0; i < totalStudents; i++){
+        student[i].displayData(i);
+    }
+    
 
-    Student *students = new Student[numStudents];
-
-    for (int i = 0; i < numStudents; i++) {
-        cout << "\nStudent " << i + 1 << ":" << endl;
-        students[i].inputStudentData();
-    }
-    
-    cout << "\nStudent Data:\n";
-    for (int i = 0; i < numStudents; i++) {
-        students[i].displayStudentData();
-        cout << "----------------------\n";
-    }
-    
-    Student::sortStudents(students, numStudents);
-    
-    for (int i = 0; i < numStudents; i++) {
-        students[i].cleanup();
-    }
-    
-    delete[] students;
     return 0;
 }
