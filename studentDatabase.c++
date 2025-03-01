@@ -1,57 +1,69 @@
 #include <iostream>
-#include<string>
+#include <string>
 using namespace std;
 
-class Student{
-    public:
+class Student {
+public:
     string name;
     int rollNo;
-    int marks[3][3];
-    int index = 0;
-    float totalMarks = 0;
-    float average[3];
-    
-    void studentData(int index){
-        index = index;
-        cout<<"Enter Name: ";
-        cin>>name;
-        cout<<"Enter RollNo: ";
-        cin>>rollNo;
+    int marks[3]; 
+    float totalMarks;
+    float average;
+
+    void studentData(int idx) {
+        cout << "Enter Name: ";
+        cin >> name;
+        cout << "Enter RollNo: ";
+        cin >> rollNo;
         
-        for(int i = 0; i < 3; i++){
-            cout<<"Enter marks for "<<i+1<<" Subject "<<endl;
-            cin>>marks[index][i];
-            totalMarks += marks[index][i];
+        totalMarks = 0;
+        
+        for(int i = 0; i < 3; i++) {
+            cout << "Enter marks for Subject " << i+1 << ": ";
+            cin >> marks[i];
+            totalMarks += marks[i];
         }
-        
-        average[index] = totalMarks / 3;
+
+        average = totalMarks / 3.0;
     }
     
-    void displayData(int index){
-        index = index;
-        cout<<"Name: "<<name<<endl;
-        cout<<"RollNo "<<rollNo<<endl;
-        
-        for(int i = 0; i < 3; i++){
-            cout<<"Marks of Subject "<<i+1<<" "<<marks[index][i]<<endl;
+    void displayData() {
+        cout << "Name: " << name << endl;
+        cout<< "Roll No: " << rollNo << endl;
+        cout << "Marks: ";
+        for(int i = 0; i < 3; i++) {
+            cout << marks[i] << " ";
         }
-        
-        cout<<"Average: "<<average[index]<<endl;
+        cout << "Average Marks: " << average << endl;
     }
 };
 
+void topStudent(Student students[], int totalStudents) {
+    int topIndex = 0;
+    for(int i = 1; i < totalStudents; i++) {
+        if(students[i].average > students[topIndex].average) {
+            topIndex = i;
+        }
+    }
+    
+    cout << "Top Student: ";
+    students[topIndex].displayData();
+}
+
 int main() {
     int totalStudents = 3;
-    Student student[totalStudents];
-    
-    for(int i = 0; i < totalStudents; i++){
-        student[i].studentData(i);
+    Student students[totalStudents];
+
+    for(int i = 0; i < totalStudents; i++) {
+        students[i].studentData(i);
     }
-    
-    for(int i = 0; i < totalStudents; i++){
-        student[i].displayData(i);
+
+    cout << "All Student Records: ";
+    for(int i = 0; i < totalStudents; i++) {
+        students[i].displayData();
     }
-    
+
+    topStudent(students, totalStudents);
 
     return 0;
 }
