@@ -18,15 +18,19 @@ class Employee{
             salary = s;
         }
 
-        void virtual calculateProfit(){
+        virtual void calculateBonus(){
             salary += 1000;
         }
 
         void virtual display(){
-            cout<<name;
-            cout<<id;
-            cout<<salary;
+            cout<<"Name: "<<name<<endl;
+            cout<<"ID: "<<id<<endl;
+            cout<<"Salary: "<<salary<<endl;
         }
+        
+        virtual ~Employee(){
+        	
+		}
 };
 
 
@@ -37,14 +41,14 @@ class Manager:public Employee{
         Manager(string n, int i, int s): Employee(n, i, s){
         }
 
-        void calculateProfit() override {
+        void calculateBonus() override {
             profit = 3000;
         }
 
         void display() override {
             cout<<"Manager"<<endl;
             Employee::display();
-            cout<<"Profit is "<<profit;
+            cout<<"Profit is "<<profit<<endl;
         }
 };
 
@@ -77,14 +81,14 @@ class Engineer:public Employee{
 
         }
 
-        void calculateProfit() override {
+        void calculateBonus() override {
             profit = 2000;
         }
 
         void display() override {
             cout<<"Engineer"<<endl;
             Employee::display();
-            cout<<"Profit "<<profit;
+            cout<<"Profit "<<profit<<endl;
         }
 };
 
@@ -94,23 +98,46 @@ class Department{
     public:
         string deptName;
         int deptId;
+        int count = 0;
 
-        Department(Employee* e, string dName, int dId){
+        Department(string dName, int dId){
             deptName = dName;
             deptId = dId;
-            emp = e;
         }
+        
+        void addEmployee(Employee *e){
+        	if(count < 5){
+        		emp[count] = e;
+            	count++;
+			}
+        	
+		}
 
         void display() {
-            emp->display();
-            cout<<"Department Name "<<deptName<<endl;
+        	cout<<"Department Name "<<deptName<<endl;
             cout<<"Department ID "<<deptId<<endl;
+            for(int i = 0; i < count; i++){
+            	emp[i]->display();
+			}
+            
         }
 };
 
 int main(){
-    Manager m("saad", 1, 10000);
-    Engineer e("Ali", 1, 5000);
-    Department d(&m, "Finance", 1);
+    Manager m("Saad", 1, 10000);
+    Engineer e("Ali", 2, 8000);
+
+    m.calculateBonus();
+    e.calculateBonus();
+
+    Department d("Tech", 101);
+    d.addEmployee(&m);
+    d.addEmployee(&e);
+
+    d.display();
+
+    e.c.start(); // Showing Car usage
+
+    return 0;
 
 }
