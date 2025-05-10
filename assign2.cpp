@@ -33,8 +33,6 @@ class Employee{
 		}
 };
 
-
-
 class Manager:public Employee{
     public:
         int profit;
@@ -67,9 +65,6 @@ class Car{
         Engine eng;
 
     public:
-        void start(){
-            cout<<"Engine Start";
-        }
 
         Car(){
             cout<<"Car Created"<<endl;
@@ -143,8 +138,6 @@ int main(){
     d.addEmployee(&e);
 
     d.display();
-
-    e.c.start();
 
     return 0;
 

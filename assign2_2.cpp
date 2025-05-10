@@ -47,8 +47,7 @@ class Buyer: public User{
 		  }
 			
 		}
-		
-		
+				
 		void displayProfile(){
         cout<<"Buyer Profile"<<endl;
         cout<<"Name: "<< name<<endl;
@@ -160,13 +159,13 @@ int main(){
 	
 	b->addMoney(5000);
 	
-	CreditCard c;
-	c.pay(*b, *s, 1000);
+	PaymentMethod *p = new CreditCard;
+	p->pay(*b, *s, 1000);
 	
 	b->displayProfile();
 	s->displayProfile();
 	
-	delete b, s;
+	delete b, s, p;
 	
 	return 0;
 }
