@@ -71,6 +71,14 @@ class Car{
             cout<<"Engine Start";
         }
 
+        Car(){
+            cout<<"Car Created"<<endl;
+        }
+
+        ~Car(){
+            cout<<"Car destroyed"<<endl;
+        }
+
 };
 
 class Engineer:public Employee{
@@ -136,7 +144,7 @@ int main(){
 
     d.display();
 
-    e.c.start(); // Showing Car usage
+    e.c.start();
 
     return 0;
 
