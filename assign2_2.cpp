@@ -2,7 +2,7 @@
 #include<string>
 using namespace std;
 
-class User{
+class User{ // Abstract Class
 	public:
 		string name;
 		string email;
@@ -109,7 +109,7 @@ class Seller: public User{
 
 };
 
-class PaymentMethod{
+class PaymentMethod{ // Interface and Abstract Class
     public:
 	    virtual void pay(User &user, User &user2, double pay) = 0;
 };
