@@ -6,11 +6,12 @@ public:
     int* data;
 
     Deep(int value) {
-        data = new int(value);
+        data = new int;
+        *data = value;
     }
 
     // Deep Copy Constructor
-    Deep(const Deep& source) {
+    Deep(Deep& source) {
         data = new int(*source.data);  // Creating new memory and copying value
     }
 
@@ -25,7 +26,7 @@ public:
 
 int main() {
     Deep obj1(10);
-    Deep obj2 = obj1;
+    Deep obj2(obj1);
 
     cout << "Before change:\n";
     obj1.display();
